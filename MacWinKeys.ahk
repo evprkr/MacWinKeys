@@ -52,6 +52,9 @@
 #z::Send {LCtrl down}{z}{LCtrl up}
 #y::Send {LCtrl down}{y}{LCtrl up}
 
+; ctrl + p (context sensitive)
+#p::Send {LCtrl down}{p}{LCtrl up}
+
 
 ;
 ; navigation
