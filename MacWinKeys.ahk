@@ -3,113 +3,86 @@
 ; evanjparker@outlook.com
 ; http://www.asciiforge.com/macwinkeys
 ; Feel free to reuse, edit and redistribute
-; Key remaps for Apple users forced to use Windows
-
-; Essentially all that this script does is reads various win/alt + {key} combos
-; and runs them as ctrl + {key}, except for a few instances
-
-; The standard ctrl + {key} shortcuts should still work normally
-
-; For editing reference, '#' represents the Windows key and '!' represents the Alt key.
+; Key remaps for Apple users stumbling their way through Windows
 
 
-; critically important! this stops the windows key from opening the start menu when another
-; shortcut is ran, which happens sometimes for reasons i do not understand
+; Essentially, this script just remaps win + {key} hotkeys to ctrl/alt + {key}, depending on the context
+; The standard ctrl + {key} shortcuts should still work normally, but certain shortcuts may not work as expected
+
+
+; this stops the start menu from opening after some shortcuts complete
 ~LWin Up:: return
 ~RWin Up:: return
 
 
 ;
-; editor
+; special cases
 ;
 
-; select all (ctrl + a)
-#a::Send {LCtrl down}{a}{LCtrl up}
+; arrow keys
+#Up::Send {LCtrl down}{Home down}{Home up}{LCtrl up}                ; win + up arrow -> ctrl + home (very top of the page/document)
+#Down::Send {LCtrl down}{End down}{End up}{LCtrl up}                ; win + down arrow -> ctrl + end (very bottom of the page/document)
+!Left::Send {LCtrl down}{Left}{LCtrl up}                            ; alt + left arrow -> ctrl + left (previous word)
+!Right::Send {LCtrl down}{Right}{LCtrl up}                          ; alt + right arrow -> ctrl + right (next word)
 
-; backspace whole line (shift + home + delete)
-#BS::Send {LShift down}{Home}{LShift Up}{Del}
+; letter keys
+#m::Send {LWin down}{Down}{LWin up}                                 ; win + m -> win + down arrow (minimize current window, kinda)
+#q::Send {LAlt down}{F4}{LAlt up}                                   ; win + q -> alt + f4 (quit current application)
+#+s::Send ^+s                                                       ; win + shift + s -> ctrl + shift + s (save as)
+#+t::Send ^+t                                                       ; win + shift + t -> ctrl + shift + t (open last closed tab)
+#+z::Send ^y                                                        ; win + shift + z -> ctrl + y (mac compatible redo)
 
-; delete next word (shift + ctrl + right)
-!Delete::Send {LShift down}{LCtrl down}{Right}{LShift Up}{Lctrl up}{Del}
-
-; delete previous word
-!BS::Send {LShift down}{LCtrl down}{Left}{LShift Up}{Lctrl up}{Del}
-
-; save, save as, open, new
-#s::Send {LCtrl down}{s}{LCtrl up} ; ctrl + s (save)
-#+s::Send {LCtrl down}{Shift down}{s}{LCtrl up}{Shift up} ; ctrl + shift + s (save as)
-#o::Send {LCtrl down}{o}{LCtrl up} ; ctrl + o (open)
-#n::Send {LCtrl down}{n}{LCtrl up} ; ctrl + n (new)
-
-; next/previous word
-!Left::Send {LCtrl down}{Left}{LCtrl up}
-!Right::Send {LCtrl down}{Right}{LCtrl up}
-
-; beginning/end of line
-; remapped below as home/end w/ arrow keys
-
-; undo/redo
-#z::Send {LCtrl down}{z}{LCtrl up}
-#y::Send {LCtrl down}{y}{LCtrl up}
-
-; ctrl + p (context sensitive)
-#p::Send {LCtrl down}{p}{LCtrl up}
+; others
+#LButton::Send {LCtrl down}{LButton down}{LButton up}{LCtrl up}     ; win + lmb -> ctrl + lmb (open link in new tab)
+#Space::Send #s                                                     ; win + space -> win + s (similar to spotlight search)
+#BS::Send {LShift down}{Home}{LShift up}{Del}                       ; win + backspace -> shift + home + delete (delete entire line)
+!BS::Send {LShift down}{LCtrl down}{Left}{LShift up}{LCtrl up}{Del} ; alt + backspace -> ctrl + shift + left + del (delete previous word)
 
 
 ;
-; navigation
+; custom hotkeys
 ;
 
-; minimize current window (win + down, works okay-ish)
-#m::Send {LWin down}{Down}{LWin up}
+LWin & Tab::AltTab ; win + tab -> alt + tab (app switcher)
 
-; close current window (alt + f4)
-#q::Send {LAlt down}{F4}{LAlt up}
+#+l:: ; win + shift + l -> win + ctrl + right (next desktop)
+    SendInput #^{Right}
+    Return
 
-; cmd + tab (app switcher) - currently disabled, doesn't work as i had hoped :(
-; #Tab::send {LAlt down}{Tab}{LAlt up}
-
-; cmd + r (reload)
-#r::Send {LCtrl down}{r}{LCtrl up}
-
-; cmd + c/v (copy/paste)
-#c::Send {LCtrl down}{c}{LCtrl up}
-#v::Send {LCtrl down}{v}{LCtrl up}
-
-; home + end w/ arrow keys
-#Up::Send {Lctrl down}{Home}{Lctrl up} ; home (top)
-#Down::Send {Lctrl down}{End}{Lctrl up} ; end (bottom)
-
-; find on page (cmd + f)
-#f::Send {LCtrl down}{f}{LCtrl up}
+#+h:: ; win + shift + h -> win + ctrl + left (prev desktop)
+    SendInput #^{Left}
+    Return
 
 
 ;
-; browser
+; everything else
 ;
 
-; open new tab
-#t::Send {LCtrl down}{t}{LCtrl up}
+; special cases (above) are commented out here rather than removed
 
-; close current tab
-#w::Send {LCtrl down}{w}{LCtrl up}
-
-; reopen previously closed tab
-#+t::Send {LCtrl down}{Shift down}{t}{Shift up}{LCtrl up}
-
-; open link in new tab
-#LButton::Send {LCtrl down}{LButton}{LCtrl up}
-
-
-;
-; other
-;
-
-; windows search (spotlight search substitute)
-#Space::Send {LWin down}{s}{LWin up}
-
-; app expose
-F3::Send {LWin down}{Tab}{LWin up}
-
-; OPTIONAL: lock screen with win + l (uncomment to disable)
-; #l::Send {LCtrl down}{l}{LCtrl up}
+#a::Send ^a ; win + a -> ctrl + a
+#b::Send ^b ; win + b -> ctrl + b
+#c::Send ^c ; win + c -> ctrl + c
+#d::Send ^d ; win + d -> ctrl + d
+#e::Send ^e ; win + e -> ctrl + e
+#f::Send ^f ; win + f -> ctrl + f
+#g::Send ^g ; win + g -> ctrl + g
+#h::Send ^h ; win + h -> ctrl + h
+#i::Send ^i ; win + i -> ctrl + i
+#j::Send ^j ; win + j -> ctrl + j
+#k::Send ^k ; win + k -> ctrl + k
+#l::Send ^l ; win + l -> ctrl + l
+; #m::Send ^m ; win + m -> ctrl + m
+#n::Send ^n ; win + n -> ctrl + n
+#o::Send ^o ; win + o -> ctrl + o
+#p::Send ^p ; win + p -> ctrl + p
+; #q::Send ^q ; win + q -> ctrl + q
+#r::Send ^r ; win + r -> ctrl + r
+#s::Send ^s ; win + s -> ctrl + s
+#t::Send ^t ; win + t -> ctrl + t
+#u::Send ^u ; win + u -> ctrl + u
+#v::Send ^v ; win + v -> ctrl + v
+#w::Send ^w ; win + w -> ctrl + w
+#x::Send ^x ; win + x -> ctrl + x
+; #y::Send ^y ; win + y -> ctrl + y
+#z::Send ^z ; win + z -> ctrl + z
