@@ -1,6 +1,5 @@
 ; Autohotkey script
-; Evan Parker, 2021-09-09
-; evanjparker@outlook.com
+; Evan Parker, 2023-02-28
 ; http://www.asciiforge.com/macwinkeys
 ; Feel free to reuse, edit and redistribute
 ; Key remaps for Apple users stumbling their way through Windows
@@ -8,7 +7,6 @@
 
 ; Essentially, this script just remaps win + {key} hotkeys to ctrl/alt + {key}, depending on the context
 ; The standard ctrl + {key} shortcuts should still work normally, but certain shortcuts may not work as expected
-
 
 ; this stops the start menu from opening after some shortcuts complete
 ~LWin Up:: return
@@ -37,6 +35,7 @@
 #Space::Send #s                                                     ; win + space -> win + s (similar to spotlight search)
 #BS::Send {LShift down}{Home}{LShift up}{Del}                       ; win + backspace -> shift + home + delete (delete entire line)
 !BS::Send {LShift down}{LCtrl down}{Left}{LShift up}{LCtrl up}{Del} ; alt + backspace -> ctrl + shift + left + del (delete previous word)
+LWin & /::Send {LCtrl down}{/ down}{/ up}{LCtrl up}
 
 
 ;
